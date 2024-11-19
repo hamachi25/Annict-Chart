@@ -8,7 +8,7 @@ export function LoginButton({ className }: { className: string }) {
                 pathname: "https://annict.com/oauth/authorize",
                 query: {
                     client_id: "GLmuMZLJQ_BCUnwTWXzb7ZKB2hm2VSALvJSPKbVB010",
-                    redirect_uri: "http://annict-chart.vercel.app/callback",
+                    redirect_uri: "https://annict-chart.vercel.app/callback",
                     response_type: "code",
                     scope: "read",
                 },
