@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 
+const apiUrl = process.env.NEXT_PUBLIC_API_DOMAIN;
+
 const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
@@ -8,7 +10,7 @@ const cspHeader = `
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
-    connect-src 'self' https://api.annict.com https://graphql.anilist.co https://annict-chart.hamachi.workers.dev;
+    connect-src 'self' https://api.annict.com https://graphql.anilist.co ${apiUrl};
 `;
 
 const nextConfig = {

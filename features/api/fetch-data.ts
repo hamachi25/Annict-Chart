@@ -29,16 +29,8 @@ export function useFetchData(token: string) {
 
     const fetchData = async () => {
         setIsLoading({ status: true, message: "Annictから視聴記録を取得しています。" });
-        const timeoutId1 = setTimeout(() => {
-            setIsLoading({
-                status: true,
-                message: `Annictから視聴記録を取得しています。
-                    データ取得に時間がかかっています。`,
-            });
-        }, 8000);
 
         const annictFetchResult = await fetchFromAnnict(annictQuery, token);
-        clearTimeout(timeoutId1);
 
         if (!annictFetchResult.data) {
             setIsLoading({ status: false, message: "" });
@@ -54,20 +46,12 @@ export function useFetchData(token: string) {
         setSeasonYearData(dataSets.seasonYearData);
 
         setIsLoading({ status: true, message: "Anilistからジャンルデータを取得しています。" });
-        const timeoutId2 = setTimeout(() => {
-            setIsLoading({
-                status: true,
-                message: `Anilistからジャンルデータを取得しています。
-                    データ取得に時間がかかっています。`,
-            });
-        }, 8000);
 
         const pages = Math.ceil(dataSets.anilistIds.length / 50);
         const anilistFetchResult: AnilistQueryResult = await fetchFromAnilist(
             generateAnilistQuery(pages),
             dataSets.anilistIds
         );
-        clearTimeout(timeoutId2);
 
         if (!anilistFetchResult?.data) {
             setIsLoading({ status: false, message: "" });

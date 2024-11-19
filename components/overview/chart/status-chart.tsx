@@ -35,6 +35,7 @@ export function StatusChart(props: {
         last6m: TimeSeriesData[];
         last1y: TimeSeriesData[];
         All: TimeSeriesData[];
+        AllperYear: TimeSeriesData[];
     };
 }) {
     const [timeRange, setTimeRange] = React.useState<TimeRange>("All");
@@ -98,7 +99,7 @@ export function StatusChart(props: {
                     chartConfig={statusTimeChartConfig}
                     xAxisFormatter={(value) => formatDate(value, false)}
                     tooltipFormatter={(value) => formatDate(value, true)}
-                    yAxisLabels={{ left: "月間記録", right: "累積記録" }}
+                    yAxisLabels={{ left: "月別記録", right: "累積記録" }}
                     chartType="line-bar"
                 />
             </CardContent>

@@ -117,7 +117,9 @@ export function PercentChart({ title, chartData, chartConfig }: Props) {
                                 axisLine={false}
                                 tickFormatter={(value) => {
                                     const label =
-                                        chartConfig[value as keyof typeof chartConfig].label;
+                                        chartConfig[
+                                            value.replace("/", "-") as keyof typeof chartConfig
+                                        ]?.label;
                                     return typeof label === "string" ? label : "";
                                 }}
                             />

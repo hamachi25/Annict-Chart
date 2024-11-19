@@ -3,7 +3,7 @@ import { GenreData } from "@/features/types/index";
 
 export const statusTimeChartConfig = {
     value: {
-        label: "月間",
+        label: "月別",
         color: "hsl(var(--chart-1))",
     },
     totalValue: {
@@ -13,15 +13,27 @@ export const statusTimeChartConfig = {
 } satisfies ChartConfig;
 
 export const recordChartConfig = {
-    value: {
-        label: "月間",
-        color: "hsl(var(--chart-1))",
+    monthly: {
+        value: {
+            label: "月別",
+            color: "hsl(var(--chart-1))",
+        },
+        totalValue: {
+            label: "累積",
+            color: "hsl(var(--chart-4))",
+        },
     },
-    totalValue: {
-        label: "累積",
-        color: "hsl(var(--chart-4))",
+    daily: {
+        value: {
+            label: "日別",
+            color: "hsl(var(--chart-1))",
+        },
+        totalValue: {
+            label: "累積",
+            color: "hsl(var(--chart-4))",
+        },
     },
-} satisfies ChartConfig;
+} as { [key: string]: ChartConfig };
 
 export const seasonChartConfig = {
     value: {

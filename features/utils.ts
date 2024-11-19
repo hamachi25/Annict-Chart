@@ -49,6 +49,40 @@ export function getMonthlySummary(
     }));
 }
 
+// 年ごとのサマリーを取得する関数
+export function getYearlySummary(
+    data: TimeSeriesData[],
+    years: number,
+    today: Date
+): TimeSeriesData[] {
+    const result: { [year: string]: number } = {};
+    const startYear = new Date(today);
+    startYear.setFullYear(startYear.getFullYear() - years + 1);
+    startYear.setMonth(0, 1);
+
+    data.forEach(({ date, value }) => {
+        const dateObj = new Date(date);
+        if (dateObj < startYear) return;
+        const yearStr = `${dateObj.getFullYear()}`;
+        result[yearStr] = (result[yearStr] || 0) + value;
+    });
+
+    const filledYearsArray: string[] = [];
+    for (
+        let currentYear = new Date(startYear);
+        currentYear <= today;
+        currentYear.setFullYear(currentYear.getFullYear() + 1)
+    ) {
+        const yearStr = `${currentYear.getFullYear()}`;
+        filledYearsArray.push(yearStr);
+    }
+
+    return filledYearsArray.map((year) => ({
+        date: year,
+        value: result[year] || 0,
+    }));
+}
+
 // 累積和を計算する関数
 export function calculateCumulativeSum(data: TimeSeriesData[]): TimeSeriesData[] {
     let totalSum = 0;
@@ -80,8 +114,10 @@ export function generateDateCountMap(items: { createdAt: string }[]): {
 } {
     const dateCountMap: { [key: string]: number } = {};
     items.forEach((item) => {
-        const date = convertToJSTDateString(item.createdAt);
-        dateCountMap[date] = (dateCountMap[date] || 0) + 1;
+        if (item.createdAt) {
+            const date = convertToJSTDateString(item.createdAt);
+            dateCountMap[date] = (dateCountMap[date] || 0) + 1;
+        }
     });
     return dateCountMap;
 }
@@ -151,6 +187,7 @@ export function createEmptyStatusData(mediaCount: PieChartCount) {
         last6m: [],
         last1y: [],
         All: [],
+        AllperYear: [],
         mediaCount,
         seasonYearData: [],
         anilistIds: [],
@@ -204,4 +241,28 @@ export function initializeMediaCount(): PieChartCount {
         { type: "TV", value: 0, fill: "var(--color-TV)", percentage: 0 },
         { type: "WEB", value: 0, fill: "var(--color-WEB)", percentage: 0 },
     ];
+}
+
+// 30日間のサマリーを取得する関数
+export function getLast30DaysSummary(
+    dateCountMap: { [key: string]: number },
+    today: Date
+): TimeSeriesData[] {
+    const last30Days = [];
+    const startDate = new Date(today);
+    startDate.setDate(startDate.getDate() - 30);
+
+    let totalValue = 0;
+    for (let date = new Date(startDate); date <= today; date.setDate(date.getDate() + 1)) {
+        const dateString = formatDateToISO(date);
+        const value = dateCountMap[dateString] || 0;
+        totalValue += value;
+        last30Days.push({
+            date: dateString,
+            value: value,
+            totalValue: totalValue,
+        });
+    }
+
+    return last30Days;
 }

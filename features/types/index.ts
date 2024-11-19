@@ -48,12 +48,14 @@ export type RecordDataSets = {
     last6m: TimeSeriesData[];
     last1y: TimeSeriesData[];
     All: TimeSeriesData[];
+    AllperYear: TimeSeriesData[];
 };
 
 export type StatusDataSets = {
     last6m: TimeSeriesData[];
     last1y: TimeSeriesData[];
     All: TimeSeriesData[];
+    AllperYear: TimeSeriesData[];
 };
 
 export type AnilistMediaItem = {

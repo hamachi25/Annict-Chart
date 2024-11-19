@@ -50,6 +50,7 @@ export const useStore = create<{
         last6m: [],
         last1y: [],
         All: [],
+        AllperYear: [],
     },
     setRecordDataSets: (recordDataSets) => set({ recordDataSets }),
 
@@ -57,6 +58,7 @@ export const useStore = create<{
         last6m: [],
         last1y: [],
         All: [],
+        AllperYear: [],
     },
     setStatusDataSets: (statusDataSets) => set({ statusDataSets }),
 

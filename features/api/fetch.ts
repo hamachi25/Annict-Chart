@@ -40,16 +40,24 @@ export async function fetchFromAnilist(query: string, anilistIds: number[]) {
     }
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URI;
+
 export async function fetchToken(code: string) {
     try {
-        const response = await fetch("http://annict-chart.hamachi.workers.dev/token", {
+        if (!apiUrl || !redirectUri) {
+            throw new Error(
+                "API URLまたはリダイレクトURIが設定されていません。環境変数を確認してください。"
+            );
+        }
+        const response = await fetch(apiUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 code,
-                redirect_uri: "https://annict-chart.vercel.app/callback",
+                redirect_uri: redirectUri,
             }),
         });
 

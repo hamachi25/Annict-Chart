@@ -38,9 +38,16 @@ export function RecordChart(props: {
         last6m: TimeSeriesData[];
         last1y: TimeSeriesData[];
         All: TimeSeriesData[];
+        AllperYear: TimeSeriesData[];
     };
 }) {
     const [timeRange, setTimeRange] = React.useState<TimeRange>("All");
+
+    // 期間が長い用の年ごとのデータ
+    // const dataToUse = timeRange === "All" && props.chartData.All.length >= 24
+    //     ? props.chartData.AllperYear
+    //     : props.chartData[timeRange];
+    // const totalValue = dataToUse.reduce((sum, item) => sum + item.value, 0);
 
     const totalValue = props.chartData[timeRange].reduce((sum, item) => sum + item.value, 0);
 
@@ -52,6 +59,9 @@ export function RecordChart(props: {
         const [year, month] = value.split("-");
         return isTooltip ? `${parseInt(year)}年${parseInt(month)}月` : `${parseInt(month)}月`;
     };
+
+    const chartConfig =
+        timeRange === "last30d" ? recordChartConfig.daily : recordChartConfig.monthly;
 
     return (
         <Card>
@@ -102,10 +112,13 @@ export function RecordChart(props: {
                 </div>
                 <TimeSeriesChart
                     data={props.chartData[timeRange]}
-                    chartConfig={recordChartConfig}
+                    chartConfig={chartConfig}
                     xAxisFormatter={(value) => formatDate(value, false)}
                     tooltipFormatter={(value) => formatDate(value, true)}
-                    yAxisLabels={{ left: "月間記録", right: "累積記録" }}
+                    yAxisLabels={{
+                        left: timeRange === "last30d" ? "日別記録" : "月別記録",
+                        right: "累積記録",
+                    }}
                     chartType="line-bar"
                 />
             </CardContent>
