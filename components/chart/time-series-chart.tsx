@@ -1,0 +1,132 @@
+"use client";
+
+import * as React from "react";
+import { CartesianGrid, ComposedChart, Line, Bar, XAxis, YAxis } from "recharts";
+
+import {
+    ChartConfig,
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
+    ChartLegend,
+    ChartLegendContent,
+} from "@/components/ui/chart";
+
+import type { TimeSeriesData } from "@/features/types";
+
+type CommonChartProps = {
+    data: TimeSeriesData[];
+    chartConfig: ChartConfig;
+    xAxisFormatter: (value: string) => string;
+    tooltipFormatter: (value: string) => string;
+    yAxisLabels?: {
+        left?: string;
+        right?: string;
+    };
+    chartType: "line" | "bar" | "line-bar";
+};
+
+export function TimeSeriesChart(props: CommonChartProps) {
+    const { data, chartConfig, xAxisFormatter, tooltipFormatter, yAxisLabels, chartType } = props;
+
+    return (
+        <ChartContainer className="h-[250px] w-full" config={chartConfig}>
+            <ComposedChart
+                accessibilityLayer
+                data={data}
+                margin={{
+                    left: 12,
+                    right: 12,
+                }}
+            >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                    dataKey="date"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    tickFormatter={xAxisFormatter}
+                    interval={"preserveStartEnd"}
+                />
+                <YAxis
+                    yAxisId={1}
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    tickCount={5}
+                    label={
+                        yAxisLabels?.left
+                            ? {
+                                  value: yAxisLabels.left,
+                                  angle: 0,
+                                  position: "insideLeft",
+                                  style: {
+                                      fontSize: 13,
+                                      textAnchor: "middle",
+                                      writingMode: "vertical-rl",
+                                      textOrientation: "upright",
+                                  },
+                              }
+                            : undefined
+                    }
+                />
+                {chartType === "line-bar" && (
+                    <YAxis
+                        yAxisId={2}
+                        tickLine={false}
+                        axisLine={false}
+                        orientation="right"
+                        tickMargin={8}
+                        tickCount={5}
+                        label={
+                            yAxisLabels?.right
+                                ? {
+                                      value: yAxisLabels.right,
+                                      angle: 0,
+                                      position: "insideRight",
+                                      style: {
+                                          fontSize: 13,
+                                          textAnchor: "middle",
+                                          writingMode: "vertical-rl",
+                                          textOrientation: "upright",
+                                      },
+                                  }
+                                : undefined
+                        }
+                    />
+                )}
+                <ChartTooltip
+                    animationDuration={300}
+                    animationEasing="ease-out"
+                    content={<ChartTooltipContent labelFormatter={tooltipFormatter} />}
+                />
+                {chartType === "line-bar" && (
+                    <ChartLegend verticalAlign="top" content={<ChartLegendContent />} />
+                )}
+                {(chartType === "bar" || chartType === "line-bar") && (
+                    <Bar
+                        yAxisId={1}
+                        dataKey="value"
+                        type="linear"
+                        fill="var(--color-value)"
+                        radius={4}
+                    />
+                )}
+                {(chartType === "line" || chartType === "line-bar") && (
+                    <Line
+                        yAxisId={chartType === "line-bar" ? 2 : 1}
+                        dataKey={chartType === "line-bar" ? "totalValue" : "value"}
+                        type="monotone"
+                        stroke={
+                            chartType === "line-bar"
+                                ? "var(--color-totalValue)"
+                                : "var(--color-value)"
+                        }
+                        strokeWidth={3}
+                        dot={false}
+                    />
+                )}
+            </ComposedChart>
+        </ChartContainer>
+    );
+}
