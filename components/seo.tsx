@@ -15,7 +15,7 @@ const Seo = ({ pageTitle, pagePath }: { pageTitle: string; pagePath: string }) =
             <meta property="og:site_name" content="Annict Chart" />
             <meta property="og:description" content={description} />
             <meta property="og:type" content="website" />
-            <meta property="og:image" content="/og.png" />
+            <meta property="og:image" content="https://annict-chart.vercel.app/og.png" />
             <link rel="canonical" href={url} />
         </>
     );
