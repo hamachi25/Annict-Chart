@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, Suspense } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { fetchToken } from "@/features/api/fetch";
@@ -11,9 +11,18 @@ function CallbackContent() {
 
     const searchParams = useSearchParams();
     const code = searchParams.get("code");
+    const state = searchParams.get("state");
+    const [storedState, setStoredState] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!code) {
+        if (typeof window !== "undefined") {
+            const storedState = sessionStorage.getItem("oauth_state");
+            setStoredState(storedState);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!code || state !== storedState) {
             router.push("/login");
             return;
         }
@@ -30,7 +39,7 @@ function CallbackContent() {
             }
         };
         fetchData();
-    }, [code, router]);
+    }, [code, state, storedState, router]);
 
     return (
         <div className="min-h-screen flex justify-center items-center">
