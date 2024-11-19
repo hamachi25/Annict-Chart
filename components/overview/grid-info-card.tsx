@@ -10,7 +10,7 @@ export function GridInfoCard({ children, title, data }: Props) {
     return (
         <Card className="flex flex-col">
             <div className="flex h-full gap-4 px-3 py-4 items-center lg:gap-6 md:px-4 lg:px-9">
-                <div className="border rounded-full p-2 bg-gray-100 [&>svg]:w-5 [&>svg]:h-5 md:[&>svg]:w-6 md:[&>svg]:h-6">
+                <div className="border rounded-full p-2 bg-[hsl(var(--muted))] [&>svg]:w-5 [&>svg]:h-5 md:[&>svg]:w-6 md:[&>svg]:h-6">
                     {children}
                 </div>
                 <div>
