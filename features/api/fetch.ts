@@ -49,7 +49,7 @@ export async function fetchToken(code: string) {
             },
             body: JSON.stringify({
                 code,
-                redirect_uri: "http://localhost:3000/callback",
+                redirect_uri: "http://annict-chart.vercel.app/callback",
             }),
         });
 
