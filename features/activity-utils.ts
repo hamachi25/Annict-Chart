@@ -15,8 +15,8 @@ import {
     filterEpisodes,
     filterStatuses,
     calculateMediaCount,
-    getLast30DaysSummary, // 新しい関数をインポート
-    getYearlySummary, // 新しい関数をインポート
+    getLast30DaysSummary,
+    // getYearlySummary,
 } from "./utils";
 
 // エピソード活動データを抽出する関数
@@ -41,9 +41,9 @@ export function episodeActivity(data: UserData) {
         calculateCumulativeSum(
             getMonthlySummary(allTimeData, calculateTotalMonths(today, startDate), today)
         ),
-        calculateCumulativeSum(
-            getYearlySummary(allTimeData, calculateTotalMonths(today, startDate) / 12, today)
-        ), // 年ごとのデータを追加
+        // calculateCumulativeSum(
+        //     getYearlySummary(allTimeData, calculateTotalMonths(today, startDate) / 12, today)
+        // ),
     ];
 
     return {
@@ -51,7 +51,7 @@ export function episodeActivity(data: UserData) {
         last6m: recordData[1],
         last1y: recordData[2],
         All: recordData[3],
-        AllperYear: recordData[4],
+        AllperYear: [],
         activeDays,
     };
 }
@@ -79,9 +79,9 @@ export function statusActivity(data: UserData) {
         calculateCumulativeSum(getMonthlySummary(allTimeData, period, today))
     );
 
-    const yearlyData = calculateCumulativeSum(
-        getYearlySummary(allTimeData, calculateTotalMonths(today, startDate) / 12, today)
-    ); // 年ごとのデータを追加
+    // const yearlyData = calculateCumulativeSum(
+    //     getYearlySummary(allTimeData, calculateTotalMonths(today, startDate) / 12, today)
+    // );
 
     // anilist_idを取得して配列にする
     const anilistIds = Array.from(
@@ -101,7 +101,7 @@ export function statusActivity(data: UserData) {
         last6m: statusData[0],
         last1y: statusData[1],
         All: statusData[2],
-        AllperYear: yearlyData,
+        AllperYear: [],
         mediaCount,
         anilistIds,
     };

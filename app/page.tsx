@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import Seo from "@/components/seo";
 import { Header } from "@/components/header";
 import { OverviewPage } from "@/components/page/overview-page";
 
@@ -24,11 +25,14 @@ export default function Home() {
     useFetchData(token);
 
     return (
-        <div className="mx-auto max-w-[1200px]">
-            <Header isLoginPage={false} />
-            <main className="mx-auto mt-5 mb-10 px-4">
-                <OverviewPage />
-            </main>
-        </div>
+        <>
+            <Seo pageTitle={""} pagePath={"https://annict-chart.vercel.app/"} />
+            <div className="mx-auto max-w-[1200px]">
+                <Header isLoginPage={false} />
+                <main className="mx-auto mt-5 mb-10 px-4">
+                    <OverviewPage />
+                </main>
+            </div>
+        </>
     );
 }
