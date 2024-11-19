@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 
 import { ModeToggle } from "@/components/mode-toggle";

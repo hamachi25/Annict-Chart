@@ -30,7 +30,7 @@ export default function Callback() {
             }
         };
         fetchData();
-    }, [code]);
+    }, [code, router]);
 
     return (
         <div className="min-h-screen flex justify-center items-center">

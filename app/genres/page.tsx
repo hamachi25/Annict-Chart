@@ -24,7 +24,7 @@ export default function GenrePage() {
         } else {
             setToken(token);
         }
-    }, []);
+    }, [router]);
 
     const { genresData, isLoading } = useStore();
     useFetchData(token);
