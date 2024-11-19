@@ -1,11 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { fetchToken } from "@/features/api/fetch";
 
-export default function Callback() {
+function CallbackContent() {
     const router = useRouter();
     const hasFetched = useRef(false);
 
@@ -34,7 +34,15 @@ export default function Callback() {
 
     return (
         <div className="min-h-screen flex justify-center items-center">
-            <span className="text-xl">認証中</span>
+            <span className="text-xl">認証中...</span>
         </div>
+    );
+}
+
+export default function Callback() {
+    return (
+        <Suspense>
+            <CallbackContent />
+        </Suspense>
     );
 }
