@@ -1,4 +1,4 @@
-# [Annict Chart](https://annict-chart.vercel.app/)
+# Annict Chart
 
 [Annict Chart](https://annict-chart.vercel.app/) は、Annict の視聴記録をグラフで可視化する非公式サービスです。
 
