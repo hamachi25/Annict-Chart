@@ -66,7 +66,7 @@ export function GenreCard({ data }: Props) {
                                 {items.slice(0, 20).map((item, index) => (
                                     <CarouselItem
                                         key={index}
-                                        className="px-1 flex-[0_0_auto] md:px-2"
+                                        className="px-1 flex-[0_0_auto] md:px-1.5"
                                     >
                                         <TooltipProvider delayDuration={0}>
                                             <Tooltip>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import Seo from "@/components/seo";
 import { Header } from "@/components/header";
-import { OverviewPage } from "@/components/page/overview-page";
+import { OverviewPage } from "@/components/overview/overview-page";
 
 import { useFetchData } from "@/features/api/fetch-data";
 import { getToken } from "@/features/get-token";

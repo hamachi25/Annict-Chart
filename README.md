@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# [Annict Chart](https://annict-chart.vercel.app/)
 
-## Getting Started
+[Annict Chart](https://annict-chart.vercel.app/) は、Annict の視聴記録をグラフで可視化する非公式サービスです。
 
-First, run the development server:
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./public/hero-image-dark.jp">
+  <source media="(prefers-color-scheme: light)" srcset="./public/hero-image.jpg">
+  <img alt="d-Record" src="./public/hero-image.jpg">
+</picture>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+## ビルド
+
+```
+pnpm i
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+OAuth のために".env.local"ファイルを作成する必要があります。API はプロキシサーバーのドメインです。プロキシサーバーでシークレットクライアントをリクエストに追加し、Annict に送信しています。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_REDIRECT_URI=http://localhost:3000/callback
+NEXT_PUBLIC_CLIENT_ID=fjiaejfojeajfjeiofjaje
+NEXT_PUBLIC_API_DOMAIN=https://example.com
+NEXT_PUBLIC_API_URL=https://example.com/token
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+localstorage に key を"token"として Annict トークンを保存しておくことで、この OAuth を回避できます。

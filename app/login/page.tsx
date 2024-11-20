@@ -7,6 +7,7 @@ import Seo from "@/components/seo";
 import { Header } from "@/components/header";
 import { getToken } from "@/features/get-token";
 import { LoginButton } from "@/components/login/login-button";
+import { Footer } from "@/components/footer";
 
 export default function Login() {
     const router = useRouter();
@@ -70,6 +71,7 @@ export default function Login() {
                         />
                     </div>
                 </main>
+                <Footer />
             </div>
         </>
     );
