@@ -7,8 +7,6 @@ export function LoginButton({ className }: { className: string }) {
     const state = uuidv4();
 
     useEffect(() => {
-        console.log("保存");
-        console.log("state：" + state);
         sessionStorage.setItem("oauth_state", state);
     }, [state]);
 

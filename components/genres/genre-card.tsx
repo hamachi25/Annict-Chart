@@ -63,7 +63,7 @@ export function GenreCard({ data }: Props) {
                             }}
                         >
                             <CarouselContent className="-ml-1 select-none">
-                                {items.slice(0, 20).map((item, index) => (
+                                {items.slice(0, 15).map((item, index) => (
                                     <CarouselItem
                                         key={index}
                                         className="px-1 flex-[0_0_auto] md:px-1.5"

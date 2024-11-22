@@ -30,7 +30,7 @@ export function OverviewPage() {
     ) : !activeDays ? (
         <div className="text-lg text-center my-20">データの取得に失敗しました。</div>
     ) : (
-        <div className="flex flex-col gap-4 md:gap-6">
+        <div className="flex flex-col gap-4 md:gap-5">
             {/* prettier-ignore */}
             <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
                     <GridInfoCard
@@ -70,7 +70,7 @@ export function OverviewPage() {
             <StatusChart chartData={statusDataSets} />
             <RecordChart chartData={recordDataSets} />
 
-            <div className="grid gap-4 sm:grid-cols-2 md:gap-6">
+            <div className="grid gap-4 sm:grid-cols-2 md:gap-5">
                 <PercentChart
                     title="メディア分布"
                     chartData={mediaCount}

@@ -56,14 +56,16 @@ export function PercentChart({ title, chartData, chartConfig }: Props) {
             <CardHeader>
                 <CardTitle className="flex gap-2 items-center">{title}</CardTitle>
             </CardHeader>
-            <CardContent className="pb-4 w-full h-[250px]">
+            <CardContent className="pb-6 w-full h-[300px] sm:h-[250px]">
                 <div
                     className={`flex flex-col h-full w-full justify-center items-center mx-auto gap-2
-                        ${isGenrePage ? "sm:flex-row sm:gap-4" : "md:flex-row md:gap-4"}`}
+                        ${isGenrePage ? "sm:flex-row" : "md:flex-row md:gap-0"}`}
                 >
                     <ChartContainer
                         config={chartConfig}
-                        className={`w-1/3 h-1/2 ${isGenrePage ? "sm:h-full" : "md:h-full"}`}
+                        className={`h-1/2 ${
+                            isGenrePage ? "w-full sm:w-1/3 sm:h-full" : "w-full md:h-full md:w-1/2"
+                        }`}
                     >
                         <PieChart>
                             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
@@ -75,14 +77,13 @@ export function PercentChart({ title, chartData, chartConfig }: Props) {
                                 endAngle={-270}
                                 // paddingAngle={1}
                                 // innerRadius={40}
-                                outerRadius="100%"
                             >
                                 <LabelList
                                     dataKey="type"
-                                    className="fill-background"
+                                    className="fill-white"
                                     stroke="none"
                                     fontSize={12}
-                                    fontWeight={700}
+                                    fontWeight={500}
                                     formatter={(value: string) =>
                                         labelFormatter(value, chartData, chartConfig, isMobile)
                                     }
@@ -92,9 +93,9 @@ export function PercentChart({ title, chartData, chartConfig }: Props) {
                     </ChartContainer>
                     <ChartContainer
                         config={chartConfig}
-                        className={`h-1/2 relative ${
+                        className={`w-full h-1/2 relative ${
                             isGenrePage
-                                ? "right-5 sm:right-0 sm:w-1/2 sm:h-2/3 sm:my-auto"
+                                ? "right-0 sm:w-2/5 sm:h-2/3 sm:my-auto"
                                 : "right-2 md:right-0 md:w-1/2 md:h-2/3 md:my-auto"
                         } `}
                     >

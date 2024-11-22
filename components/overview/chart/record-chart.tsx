@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
     Select,
     SelectContent,
@@ -14,6 +14,7 @@ import {
 import type { TimeSeriesData } from "@/features/types";
 import { TimeSeriesChart } from "@/components/chart/time-series-chart";
 import { recordChartConfig } from "@/features/chart-config";
+import { TimeSeriesCardHeader } from "@/components/overview/card-header";
 
 type TimeRange = "last30d" | "last6m" | "last1y" | "All";
 
@@ -38,16 +39,9 @@ export function RecordChart(props: {
         last6m: TimeSeriesData[];
         last1y: TimeSeriesData[];
         All: TimeSeriesData[];
-        AllperYear: TimeSeriesData[];
     };
 }) {
     const [timeRange, setTimeRange] = React.useState<TimeRange>("All");
-
-    // 期間が長い用の年ごとのデータ
-    // const dataToUse = timeRange === "All" && props.chartData.All.length >= 24
-    //     ? props.chartData.AllperYear
-    //     : props.chartData[timeRange];
-    // const totalValue = dataToUse.reduce((sum, item) => sum + item.value, 0);
 
     const totalValue = props.chartData[timeRange].reduce((sum, item) => sum + item.value, 0);
 
@@ -65,22 +59,11 @@ export function RecordChart(props: {
 
     return (
         <Card>
-            <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
-                <div className="flex flex-1 flex-col justify-center gap-1 py-4 px-6">
-                    <CardTitle className="flex gap-2 items-center">記録したエピソード</CardTitle>
-                    <CardDescription>
-                        {getTimeRangeDescription(timeRange)}に記録したエピソード数の推移
-                    </CardDescription>
-                </div>
-                <div className="flex">
-                    <div className="relative z-30 flex flex-1 flex-row gap-1 border-t px-6 py-3 text-left sm:flex-col sm:justify-center sm:border-l sm:border-t-0 sm:px-10 sm:py-4">
-                        <span className="text-xs text-muted-foreground">累計</span>
-                        <span className="text-lg font-bold leading-none sm:text-3xl">
-                            {totalValue}
-                        </span>
-                    </div>
-                </div>
-            </CardHeader>
+            <TimeSeriesCardHeader
+                title="記録したエピソード"
+                description={`${getTimeRangeDescription(timeRange)}に記録したエピソード数の推移`}
+                totalValue={totalValue}
+            />
 
             <CardContent className="px-2 pt-6 sm:p-6">
                 <div className="mb-4 flex gap-3 justify-end">

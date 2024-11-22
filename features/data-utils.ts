@@ -26,14 +26,12 @@ function extractRecordData(recordData: {
     last6m: TimeSeriesData[];
     last1y: TimeSeriesData[];
     All: TimeSeriesData[];
-    AllperYear: TimeSeriesData[];
 }) {
     return {
         last30d: recordData.last30d,
         last6m: recordData.last6m,
         last1y: recordData.last1y,
         All: recordData.All,
-        AllperYear: recordData.AllperYear,
     };
 }
 
@@ -41,12 +39,10 @@ function extractStatusData(statusData: {
     last6m: TimeSeriesData[];
     last1y: TimeSeriesData[];
     All: TimeSeriesData[];
-    AllperYear: TimeSeriesData[];
 }) {
     return {
         last6m: statusData.last6m,
         last1y: statusData.last1y,
         All: statusData.All,
-        AllperYear: statusData.AllperYear,
     };
 }

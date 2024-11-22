@@ -19,15 +19,26 @@ type CommonChartProps = {
     chartConfig: ChartConfig;
     xAxisFormatter: (value: string) => string;
     tooltipFormatter: (value: string) => string;
-    yAxisLabels?: {
+    yAxisLabels: {
         left?: string;
         right?: string;
     };
-    chartType: "line" | "bar" | "line-bar";
+    chartType: "line" | "line-bar";
 };
 
 export function TimeSeriesChart(props: CommonChartProps) {
     const { data, chartConfig, xAxisFormatter, tooltipFormatter, yAxisLabels, chartType } = props;
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 640);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     return (
         <ChartContainer className="h-[250px] w-full" config={chartConfig}>
@@ -39,7 +50,7 @@ export function TimeSeriesChart(props: CommonChartProps) {
                     right: 12,
                 }}
             >
-                <CartesianGrid vertical={false} />
+                <CartesianGrid vertical={false} horizontal={true} />
                 <XAxis
                     dataKey="date"
                     tickLine={false}
@@ -54,8 +65,10 @@ export function TimeSeriesChart(props: CommonChartProps) {
                     axisLine={false}
                     tickMargin={8}
                     tickCount={5}
+                    tick={isMobile || chartType === "line" ? false : true}
+                    width={isMobile || chartType === "line" ? 0 : 60}
                     label={
-                        yAxisLabels?.left
+                        yAxisLabels.left
                             ? {
                                   value: yAxisLabels.left,
                                   angle: 0,
@@ -78,8 +91,10 @@ export function TimeSeriesChart(props: CommonChartProps) {
                         orientation="right"
                         tickMargin={8}
                         tickCount={5}
+                        tick={isMobile ? false : true}
+                        width={isMobile ? 0 : 60}
                         label={
-                            yAxisLabels?.right
+                            yAxisLabels.right
                                 ? {
                                       value: yAxisLabels.right,
                                       angle: 0,
@@ -101,31 +116,27 @@ export function TimeSeriesChart(props: CommonChartProps) {
                     content={<ChartTooltipContent labelFormatter={tooltipFormatter} />}
                 />
                 {chartType === "line-bar" && (
-                    <ChartLegend verticalAlign="top" content={<ChartLegendContent />} />
+                    <>
+                        <ChartLegend verticalAlign="top" content={<ChartLegendContent />} />
+                        <Bar
+                            yAxisId={1}
+                            dataKey="value"
+                            type="linear"
+                            fill="var(--color-value)"
+                            radius={4}
+                        />
+                    </>
                 )}
-                {(chartType === "bar" || chartType === "line-bar") && (
-                    <Bar
-                        yAxisId={1}
-                        dataKey="value"
-                        type="linear"
-                        fill="var(--color-value)"
-                        radius={4}
-                    />
-                )}
-                {(chartType === "line" || chartType === "line-bar") && (
-                    <Line
-                        yAxisId={chartType === "line-bar" ? 2 : 1}
-                        dataKey={chartType === "line-bar" ? "totalValue" : "value"}
-                        type="monotone"
-                        stroke={
-                            chartType === "line-bar"
-                                ? "var(--color-totalValue)"
-                                : "var(--color-value)"
-                        }
-                        strokeWidth={3}
-                        dot={false}
-                    />
-                )}
+                <Line
+                    yAxisId={chartType === "line-bar" ? 2 : 1}
+                    dataKey={chartType === "line-bar" ? "totalValue" : "value"}
+                    type="monotone"
+                    stroke={
+                        chartType === "line-bar" ? "var(--color-totalValue)" : "var(--color-value)"
+                    }
+                    strokeWidth={3}
+                    dot={false}
+                />
             </ComposedChart>
         </ChartContainer>
     );

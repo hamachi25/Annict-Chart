@@ -66,8 +66,8 @@ export function processAnilistGenres(anilistFetchResult: AnilistQueryResult, ani
     genreCountWithPercentage.sort((a, b) => b.value - a.value);
 
     // 上位4つを取得し、それ以降を「その他」にまとめる
-    const top4Genres = genreCountWithPercentage.slice(0, 5);
-    const otherGenres = genreCountWithPercentage.slice(5);
+    const top4Genres = genreCountWithPercentage.slice(0, 6);
+    const otherGenres = genreCountWithPercentage.slice(6);
 
     const otherGenreCount = otherGenres.reduce((sum, genre) => sum + genre.value, 0);
     const otherGenrePercentage = otherGenres.reduce((sum, genre) => sum + genre.percentage, 0);

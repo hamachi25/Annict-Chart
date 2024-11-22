@@ -43,7 +43,11 @@ export function getMonthlySummary(
         filledMonthsArray.push(monthStr);
     }
 
-    return filledMonthsArray.map((month) => ({
+    const maxMonths = 60;
+    const step = Math.ceil(filledMonthsArray.length / maxMonths);
+    const reducedMonthsArray = filledMonthsArray.filter((_, index) => index % step === 0);
+
+    return reducedMonthsArray.map((month) => ({
         date: month,
         value: result[month] || 0,
     }));

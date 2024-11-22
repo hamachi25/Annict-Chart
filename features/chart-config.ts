@@ -90,7 +90,7 @@ export const statusPercentChartConfig = {
 
 export const createMediaChartConfig = (genresData: GenreData) => {
     const config: { [key: string]: { label: string; color: string } } = {};
-    const colorOrder = [1, 2, 3, 4, 5, 6];
+    const colorOrder = [1, 2, 3, 4, 5, 6, 7];
     genresData.genreCount.forEach((genre, index) => {
         config[genre.type.replace("/", "-")] = {
             label: genre.type, // ラベルを修正
