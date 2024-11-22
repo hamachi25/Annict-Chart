@@ -80,6 +80,7 @@ export function GenreCard({ data }: Props) {
                                                                 className="flex items-center"
                                                             >
                                                                 <Image
+                                                                    unoptimized
                                                                     className="rounded !max-h-[109px]"
                                                                     src={item.coverImage}
                                                                     alt={item.title}
@@ -90,6 +91,7 @@ export function GenreCard({ data }: Props) {
                                                             </Link>
                                                         ) : (
                                                             <Image
+                                                                unoptimized
                                                                 className="rounded"
                                                                 src={item.coverImage}
                                                                 alt={item.title}
