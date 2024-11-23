@@ -1,4 +1,5 @@
 import type { TimeSeriesData, UserData } from "./types";
+import { arm } from "@kawaiioverflow/arm";
 
 // シーズン年データを計算する関数
 export function calculateSeasonYears(data: UserData): TimeSeriesData[] {
@@ -24,4 +25,14 @@ export function calculateSeasonYears(data: UserData): TimeSeriesData[] {
         date: year,
         value: seasonYearCountMap[year],
     }));
+}
+
+// anilist_idを取得して配列にする
+export function generateAnilistIds(data: UserData): number[] {
+    return data.works.nodes
+        .map((work) => {
+            const match = arm.find((item) => item.annict_id === work.annictId);
+            return match ? match.anilist_id : undefined;
+        })
+        .filter((id): id is number => id !== undefined);
 }

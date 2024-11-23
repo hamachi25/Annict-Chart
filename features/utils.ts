@@ -1,4 +1,10 @@
-import type { TimeSeriesData, ActivityItem, PieChartCount, UserData } from "@/features/types/index";
+import type {
+    TimeSeriesData,
+    ActivityItem,
+    PieChartCount,
+    UserData,
+    AnnictQueryResult,
+} from "@/features/types/index";
 
 // 日付の範囲内のすべての日付を取得する関数
 export function getAllDates(startDate: Date, endDate: Date): string[] {
@@ -113,9 +119,7 @@ export function convertToJSTDateString(dateString: string): string {
 }
 
 // 日付カウントマップを生成する関数
-export function generateDateCountMap(items: { createdAt: string }[]): {
-    [key: string]: number;
-} {
+export function generateDateCountMap(items: { createdAt: string }[]): { [key: string]: number } {
     const dateCountMap: { [key: string]: number } = {};
     items.forEach((item) => {
         if (item.createdAt) {
@@ -269,4 +273,42 @@ export function getLast30DaysSummary(
     }
 
     return last30Days;
+}
+
+export function updateData(storedUserData: UserData | null, newUserData: UserData): UserData {
+    return {
+        wannaWatchCount: newUserData.wannaWatchCount,
+        watchingCount: newUserData.watchingCount,
+        watchedCount: newUserData.watchedCount,
+        onHoldCount: newUserData.onHoldCount,
+        stopWatchingCount: newUserData.stopWatchingCount,
+        recordsCount: newUserData.recordsCount,
+        activities: {
+            pageInfo: {
+                startCursor:
+                    newUserData.activities.pageInfo.startCursor ||
+                    storedUserData?.activities.pageInfo.startCursor ||
+                    "",
+            },
+            edges: [...newUserData.activities.edges, ...(storedUserData?.activities.edges || [])],
+        },
+        works: {
+            pageInfo: {
+                startCursor:
+                    newUserData.works.pageInfo.startCursor ||
+                    storedUserData?.works.pageInfo.startCursor ||
+                    "",
+            },
+            nodes: [...newUserData.works.nodes, ...(storedUserData?.works.nodes || [])],
+        },
+    };
+}
+
+export function saveDataToLocalStorage(key: string, data: any) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+export function getDataFromLocalStorage(key: string) {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
 }

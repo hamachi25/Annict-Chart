@@ -1,4 +1,4 @@
-import { initializeGenreData } from "@/features/genre-utils";
+import { initializeGenreData } from "@/features/genre";
 
 import type { TimeSeriesData } from "@/features/types";
 import type {
@@ -10,7 +10,7 @@ import type {
 
 import { create } from "zustand";
 
-export const useStore = create<{
+type Store = {
     statusCount: PieChartCount;
     setStatusCount: (statusCount: PieChartCount) => void;
     recordDataSets: RecordDataSets;
@@ -30,7 +30,9 @@ export const useStore = create<{
         message: string;
     };
     setIsLoading: (isLoading: { status: boolean; message: string }) => void;
-}>((set) => ({
+};
+
+export const useStore = create<Store>((set) => ({
     statusCount: [
         { type: "wannaWatchCount", fill: "var(--color-wannaWatchCount)", value: 0, percentage: 0 },
         { type: "watchingCount", fill: "var(--color-watchingCount)", value: 0, percentage: 0 },

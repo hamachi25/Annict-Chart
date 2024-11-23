@@ -10,26 +10,13 @@ import { StatusChart } from "@/components/overview/chart/status-chart";
 import { PercentChart } from "@/components/chart/percent-chart";
 import { GridInfoCard } from "@/components/overview/grid-info-card";
 import { SeasonChart } from "@/components/overview/chart/season-chart";
-import { Loading } from "@/components/loading";
-
 import { useStore } from "@/lib/store";
 
-export function OverviewPage() {
-    const {
-        statusCount,
-        recordDataSets,
-        statusDataSets,
-        mediaCount,
-        activeDays,
-        seasonYearData,
-        isLoading,
-    } = useStore();
+export default function OverviewPage() {
+    const { statusCount, recordDataSets, statusDataSets, mediaCount, activeDays, seasonYearData } =
+        useStore();
 
-    return isLoading.status ? (
-        <Loading />
-    ) : !activeDays ? (
-        <div className="text-lg text-center my-20">データの取得に失敗しました。</div>
-    ) : (
+    return (
         <div className="flex flex-col gap-4 md:gap-5">
             {/* prettier-ignore */}
             <div className="grid gap-3 grid-cols-2 md:grid-cols-4">

@@ -14,7 +14,7 @@ export function PageTab() {
     return (
         <div className="text-center sm:text-left">
             <Tabs value={currentPath === "/genres" ? "genres" : "overview"}>
-                <TabsList className="w-[150px] md:w-[200px] bg-gray-200 dark:bg-gray-800">
+                <TabsList className="w-[150px] md:w-[200px]">
                     <Link href={"/"} className="w-1/2">
                         <TabsTrigger value="overview" className="w-full h-full">
                             概要

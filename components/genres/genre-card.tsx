@@ -29,15 +29,13 @@ type Props = {
 };
 
 export function GenreCard({ data }: Props) {
-    if (!data) return;
-
     const totalItems = Object.values(data).reduce((acc, items) => acc + items.length, 0);
 
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-5">
             {Object.entries(data).map(([genre, items]) => (
                 <Card key={genre}>
-                    <CardHeader className="dark:bg-gray-900">
+                    <CardHeader className="dark:bg-gray-950">
                         <CardTitle className="text-xl">{genre}</CardTitle>
                         <div className="flex w-full">
                             <div className="w-1/2">
@@ -92,7 +90,7 @@ export function GenreCard({ data }: Props) {
                                                         ) : (
                                                             <Image
                                                                 unoptimized
-                                                                className="rounded"
+                                                                className="rounded !max-h-[109px]"
                                                                 src={item.coverImage}
                                                                 alt={item.title}
                                                                 width={76}

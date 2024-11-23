@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { TimeSeriesChart } from "../../chart/time-series-chart";
 import { Card, CardContent } from "@/components/ui/card";

@@ -1,8 +1,16 @@
 import { arm } from "@kawaiioverflow/arm";
-import type { AnilistQueryResult } from "./types";
+import type { AnilistQueryResult, AnilistMediaItem } from "./types";
+import { getDataFromLocalStorage, saveDataToLocalStorage } from "./utils";
 
 // Anilistのジャンルデータを処理する関数
-export function processAnilistGenres(anilistFetchResult: AnilistQueryResult, anilistIds: number[]) {
+export function processAnilistGenres(
+    data: {
+        [key: string]: {
+            media: AnilistMediaItem[];
+        };
+    },
+    anilistIds: number[]
+) {
     const genreCount: { [key: string]: number } = {};
     const genreDetails: {
         [key: string]: { title: string; coverImage: string; annictId: number | undefined }[];
@@ -29,26 +37,30 @@ export function processAnilistGenres(anilistFetchResult: AnilistQueryResult, ani
         Thriller: "サスペンス",
     };
 
-    const data = anilistFetchResult.data;
+    const allMedia = Object.keys(data).reduce((acc, key) => {
+        return acc.concat(data[key].media);
+    }, [] as AnilistMediaItem[]);
+    const sortedMedia = allMedia.sort(
+        (a, b) => anilistIds.indexOf(a.id) - anilistIds.indexOf(b.id)
+    );
 
-    Object.keys(data).forEach((key) => {
-        const sortedMedia = data[key].media.sort(
-            (a, b) => anilistIds.indexOf(a.id) - anilistIds.indexOf(b.id)
-        );
-        sortedMedia.forEach((media) => {
-            media.genres.forEach((genre) => {
-                const translatedGenre = genreTranslations[genre] || genre;
-                if (!genreCount[translatedGenre]) {
-                    genreCount[translatedGenre] = 0;
-                    genreDetails[translatedGenre] = [];
-                }
-                genreCount[translatedGenre]++;
-                const match = arm.find((item) => item.anilist_id === media.id);
-                genreDetails[translatedGenre].push({
-                    title: media.title.native,
-                    coverImage: media.coverImage.large,
-                    annictId: match ? match.annict_id : undefined,
-                });
+    const storedData: AnilistMediaItem[] | null = getDataFromLocalStorage("anilistData");
+    const combinedMedia = [...sortedMedia, ...(storedData || [])];
+    saveDataToLocalStorage("anilistData", combinedMedia);
+
+    combinedMedia.forEach((media) => {
+        media.genres.forEach((genre) => {
+            const translatedGenre = genreTranslations[genre] || genre;
+            if (!genreCount[translatedGenre]) {
+                genreCount[translatedGenre] = 0;
+                genreDetails[translatedGenre] = [];
+            }
+            genreCount[translatedGenre]++;
+            const match = arm.find((item) => item.anilist_id === media.id);
+            genreDetails[translatedGenre].push({
+                title: media.title.native,
+                coverImage: media.coverImage.large,
+                annictId: match ? match.annict_id : undefined,
             });
         });
     });

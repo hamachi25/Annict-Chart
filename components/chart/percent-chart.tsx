@@ -1,5 +1,3 @@
-"use client";
-
 import { LabelList, Pie, PieChart, Bar, BarChart, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

@@ -1,19 +1,17 @@
 "use client";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import Seo from "@/components/seo";
-
-import { PercentChart } from "@/components/chart/percent-chart";
-import { createMediaChartConfig } from "@/features/chart-config";
 import { useFetchData } from "@/features/api/fetch-data";
 import { getToken } from "@/features/get-token";
-
-import { GenreCard } from "@/components/genres/genre-card";
 
 import { useStore } from "@/lib/store";
 import { Header } from "@/components/header";
 import { Loading } from "@/components/loading";
+import Seo from "@/components/seo";
+import { SkeltonPercentChart } from "@/components/chart/skelton-percent-chart";
+import { SkeltonGenreCard } from "@/components/genres/skelton-genre-card";
 
 export default function GenrePage() {
     const router = useRouter();
@@ -26,12 +24,19 @@ export default function GenrePage() {
         } else {
             setToken(token);
         }
-    }, [router]);
+    }, []);
 
     const { genresData, isLoading } = useStore();
     useFetchData(token);
 
-    const mediaChartConfig = createMediaChartConfig(genresData);
+    const DynamicChart = dynamic(() => import("@/components/genres/chart"), {
+        loading: () => (
+            <>
+                <SkeltonPercentChart title="ジャンル分布" />
+                <SkeltonGenreCard genresData={genresData} />
+            </>
+        ),
+    });
 
     return (
         <>
@@ -48,14 +53,7 @@ export default function GenrePage() {
                                 <p>AniListのAPIサーバーが停止している可能性があります。</p>
                             </div>
                         ) : (
-                            <>
-                                <PercentChart
-                                    title="ジャンル分布"
-                                    chartData={genresData.genreCount}
-                                    chartConfig={mediaChartConfig}
-                                />
-                                <GenreCard data={genresData.genreDetails} />
-                            </>
+                            <DynamicChart genresData={genresData} />
                         )}
                     </div>
                 </main>

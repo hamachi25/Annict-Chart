@@ -44,9 +44,9 @@ body {
         --radius: 0.5rem;
     }
     .dark {
-        --background: 240 20% 7%;
+        --background: 240 10% 3%;
         --foreground: 0 0% 98%;
-        --card: 240 10% 3.9%;
+        --card: 240 20% 5%;
         --card-foreground: 0 0% 98%;
         --popover: 240 10% 3.9%;
         --popover-foreground: 0 0% 98%;
@@ -63,11 +63,11 @@ body {
         --border: 240 3.7% 15.9%;
         --input: 240 3.7% 15.9%;
         --ring: 240 4.9% 83.9%;
-        --chart-1: 206 51% 50%;
-        --chart-2: 82 67% 43%;
-        --chart-3: 299 33% 52%;
+        --chart-1: 206 45% 50%;
+        --chart-2: 82 60% 43%;
+        --chart-3: 299 25% 52%;
         --chart-4: 33 80% 58%;
-        --chart-5: 53 80% 60%;
+        --chart-5: 53 70% 50%;
         --chart-6: 41 51% 70%;
         --chart-7: 249 32% 69%;
         --grid-info: 344 64% 49%;

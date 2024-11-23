@@ -30,14 +30,16 @@ export type UserData = {
     stopWatchingCount: number;
     recordsCount: number;
     works: {
-        nodes: { seasonYear: number }[];
+        pageInfo: { startCursor: string };
+        nodes: { annictId: number; seasonYear: number }[];
     };
     activities: {
+        pageInfo: { startCursor: string };
         edges: { item: ActivityItem }[];
     };
 };
 
-export type QueryResult = {
+export type AnnictQueryResult = {
     data: {
         viewer: UserData;
     };

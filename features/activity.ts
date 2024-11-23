@@ -1,4 +1,3 @@
-import { arm } from "@kawaiioverflow/arm";
 import type { UserData } from "@/features/types/index";
 import {
     generateDateCountMap,
@@ -16,7 +15,6 @@ import {
     filterStatuses,
     calculateMediaCount,
     getLast30DaysSummary,
-    // getYearlySummary,
 } from "./utils";
 
 // エピソード活動データを抽出する関数
@@ -75,25 +73,10 @@ export function statusActivity(data: UserData) {
         calculateCumulativeSum(getMonthlySummary(allTimeData, period, today))
     );
 
-    // anilist_idを取得して配列にする
-    const anilistIds = Array.from(
-        new Set(
-            statuses
-                .map((status) => {
-                    const annictId = status.work?.annictId;
-                    const match = arm.find((item) => item.annict_id === annictId);
-                    return match ? match.anilist_id : undefined;
-                })
-                .filter((id) => id !== undefined)
-                .map((id) => Number(id))
-        )
-    );
-
     return {
         last6m: statusData[0],
         last1y: statusData[1],
         All: statusData[2],
         mediaCount,
-        anilistIds,
     };
 }

@@ -1,14 +1,14 @@
-import type { TimeSeriesData, QueryResult } from "@/features/types/index";
-import { episodeActivity, statusActivity } from "./activity-utils";
-import { extractWatchCounts } from "./watch-utils";
-import { calculateSeasonYears } from "./work-utils";
+import type { TimeSeriesData, UserData } from "@/features/types/index";
+import { episodeActivity, statusActivity } from "./activity";
+import { extractWatchCounts } from "./watch-counts";
+import { calculateSeasonYears, generateAnilistIds } from "./watched-work";
 
-export function extractDataFromQuery(result: QueryResult) {
-    const data = result.data.viewer;
-    const recordData = episodeActivity(data);
-    const statusData = statusActivity(data);
-    const watchCounts = extractWatchCounts(data);
-    const seasonYearData = calculateSeasonYears(data);
+export function extractDataFromQuery(userData: UserData, newUserData: UserData) {
+    const recordData = episodeActivity(userData);
+    const statusData = statusActivity(userData);
+    const watchCounts = extractWatchCounts(userData);
+    const seasonYearData = calculateSeasonYears(userData);
+    const anilistIds = generateAnilistIds(newUserData);
 
     return {
         watchCounts,
@@ -17,7 +17,7 @@ export function extractDataFromQuery(result: QueryResult) {
         mediaCount: statusData.mediaCount,
         activeDays: recordData.activeDays,
         seasonYearData,
-        anilistIds: statusData.anilistIds,
+        anilistIds,
     };
 }
 
