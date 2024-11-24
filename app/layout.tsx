@@ -1,8 +1,6 @@
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
-
 import { ThemeProvider } from "@/components/theme-provider";
-import NextTopLoader from "nextjs-toploader";
 
 const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], weight: ["400"] });
 
@@ -14,7 +12,6 @@ export default function RootLayout({
     return (
         <html lang="ja">
             <body className={notoSansJP.className}>
-                <NextTopLoader showSpinner={false} />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
