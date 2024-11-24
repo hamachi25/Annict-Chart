@@ -1,19 +1,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function PageTab() {
     const pathname = usePathname();
-    const [currentPath, setCurrentPath] = useState("");
-
-    useEffect(() => {
-        setCurrentPath(pathname);
-    }, [pathname]);
 
     return (
         <div className="text-center sm:text-left">
-            <Tabs value={currentPath === "/genres" ? "genres" : "overview"}>
+            <Tabs value={pathname === "/genres" ? "genres" : "overview"}>
                 <TabsList className="w-[150px] md:w-[200px]">
                     <Link href={"/"} className="w-1/2">
                         <TabsTrigger value="overview" className="w-full h-full">

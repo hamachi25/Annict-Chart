@@ -1,14 +1,14 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-import Seo from "@/components/seo";
+import { MetaData } from "@/components/metadata";
 import { Header } from "@/components/header";
 import { SkeltonOverviewPage } from "@/components/overview/skelton-overview-page";
 import { Loading } from "@/components/loading";
 
-import { useFetchData } from "@/features/api/fetch-data";
+import { fetchData } from "@/features/api/fetch-data";
 import { getToken } from "@/features/get-token";
 import { useStore } from "@/lib/store";
 
@@ -16,7 +16,8 @@ export default function Home() {
     const router = useRouter();
     const [token, setToken] = useState<string>("");
 
-    const { isLoading, activeDays } = useStore();
+    const hasFetched = useRef(false);
+    const store = useStore();
 
     useEffect(() => {
         const token = getToken();
@@ -25,9 +26,11 @@ export default function Home() {
         } else {
             setToken(token);
         }
-    }, []);
+    }, [router]);
 
-    useFetchData(token);
+    useEffect(() => {
+        fetchData(token, store, hasFetched);
+    }, [token, store]);
 
     const DynamicOverviewPage = dynamic(() => import("@/components/overview/overview-page"), {
         loading: () => <SkeltonOverviewPage />,
@@ -35,13 +38,13 @@ export default function Home() {
 
     return (
         <>
-            <Seo pageTitle={""} pagePath={"https://annict-chart.vercel.app/"} />
+            <MetaData pageTitle={""} pagePath={"https://annict-chart.vercel.app/"} />
             <div className="mx-auto max-w-[1200px]">
                 <Header isLoginPage={false} />
                 <main className="mx-auto mt-5 mb-10 px-4">
-                    {isLoading.status ? (
+                    {store.isLoading.status ? (
                         <Loading />
-                    ) : !activeDays ? (
+                    ) : !store.activeDays ? (
                         <div className="text-lg text-center my-20">
                             データの取得に失敗しました。
                         </div>

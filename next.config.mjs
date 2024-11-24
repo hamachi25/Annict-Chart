@@ -9,7 +9,6 @@ const cspHeader = `
     img-src 'self' https://s4.anilist.co;
     object-src 'none';
     frame-ancestors 'none';
-    block-all-mixed-content;
     upgrade-insecure-requests;
     connect-src 'self' https://api.annict.com https://graphql.anilist.co ${apiUrl};
 `;

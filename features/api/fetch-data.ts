@@ -1,13 +1,17 @@
-import { useRef } from "react";
+import { MutableRefObject } from "react";
 import { annictQuery, generateAnilistQuery } from "@/features/api/query";
 import { processAnilistGenres } from "@/features/genre";
 import { fetchFromAnnict, fetchFromAnilist } from "@/features/api/fetch";
-import type { AnilistQueryResult, AnnictQueryResult, UserData } from "@/features/types/index";
-import { useStore } from "@/lib/store";
+import type {
+    AnilistQueryResult,
+    AnnictQueryResult,
+    UserData,
+    Store,
+} from "@/features/types/index";
 import { extractDataFromQuery } from "@/features/extract-data";
 import { updateData, getDataFromLocalStorage, saveDataToLocalStorage } from "@/features/utils";
 
-export function useFetchData(token: string) {
+export function fetchData(token: string, store: Store, hasFetched: MutableRefObject<boolean>) {
     const {
         setStatusCount,
         setRecordDataSets,
@@ -18,13 +22,9 @@ export function useFetchData(token: string) {
         setSeasonYearData,
         setGenresData,
         setIsLoading,
-    } = useStore();
+    } = store;
 
-    const hasFetched = useRef(false);
-
-    if (token === "") return;
-
-    if (hasFetched.current || activeDays !== undefined) return;
+    if (token === "" || hasFetched.current || activeDays !== undefined) return;
     hasFetched.current = true;
 
     const fetchData = async () => {

@@ -83,3 +83,25 @@ export type GenreData = {
         [key: string]: { title: string; coverImage: string; annictId: number | undefined }[];
     };
 };
+
+export type Store = {
+    statusCount: PieChartCount;
+    setStatusCount: (statusCount: PieChartCount) => void;
+    recordDataSets: RecordDataSets;
+    setRecordDataSets: (recordDataSets: RecordDataSets) => void;
+    statusDataSets: StatusDataSets;
+    setStatusDataSets: (statusDataSets: StatusDataSets) => void;
+    mediaCount: PieChartCount;
+    setMediaCount: (mediaCount: PieChartCount) => void;
+    activeDays: number | undefined;
+    setActiveDays: (activeDays: number) => void;
+    seasonYearData: TimeSeriesData[];
+    setSeasonYearData: (seasonYearData: TimeSeriesData[]) => void;
+    genresData: GenreData;
+    setGenresData: (genresData: GenreData) => void;
+    isLoading: {
+        status: boolean;
+        message: string;
+    };
+    setIsLoading: (isLoading: { status: boolean; message: string }) => void;
+};

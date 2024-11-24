@@ -69,7 +69,7 @@ export function GenreCard({ data }: Props) {
                                         <TooltipProvider delayDuration={0}>
                                             <Tooltip>
                                                 <TooltipTrigger>
-                                                    <div className="flex h-[109px]">
+                                                    <div className="flex">
                                                         {item.annictId ? (
                                                             <Link
                                                                 href={`https://annict.com/works/${item.annictId}`}
@@ -84,7 +84,10 @@ export function GenreCard({ data }: Props) {
                                                                     alt={item.title}
                                                                     width={76}
                                                                     height={109}
-                                                                    layout="intrinsic"
+                                                                    style={{
+                                                                        maxWidth: "100%",
+                                                                        height: "auto",
+                                                                    }}
                                                                 />
                                                             </Link>
                                                         ) : (
@@ -95,7 +98,10 @@ export function GenreCard({ data }: Props) {
                                                                 alt={item.title}
                                                                 width={76}
                                                                 height={109}
-                                                                layout="intrinsic"
+                                                                style={{
+                                                                    maxWidth: "100%",
+                                                                    height: "auto",
+                                                                }}
                                                             />
                                                         )}
                                                     </div>

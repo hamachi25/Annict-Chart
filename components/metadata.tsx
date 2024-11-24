@@ -1,4 +1,4 @@
-const Seo = ({ pageTitle, pagePath }: { pageTitle: string; pagePath: string }) => {
+export function MetaData({ pageTitle, pagePath }: { pageTitle: string; pagePath: string }) {
     const defaultTitle = "Annict Chart";
 
     const title = pageTitle ? `${pageTitle} | ${defaultTitle}` : defaultTitle;
@@ -19,6 +19,4 @@ const Seo = ({ pageTitle, pagePath }: { pageTitle: string; pagePath: string }) =
             <link rel="canonical" href={url} />
         </>
     );
-};
-
-export default Seo;
+}

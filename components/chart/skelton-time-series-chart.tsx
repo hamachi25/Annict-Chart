@@ -6,7 +6,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
 import type { TimeSeriesData } from "@/features/types";
 
 export function SkeltonTimeSeriesChart({

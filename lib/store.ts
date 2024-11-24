@@ -1,36 +1,6 @@
 import { initializeGenreData } from "@/features/genre";
-
-import type { TimeSeriesData } from "@/features/types";
-import type {
-    PieChartCount,
-    RecordDataSets,
-    StatusDataSets,
-    GenreData,
-} from "@/features/types/index";
-
+import type { Store } from "@/features/types/index";
 import { create } from "zustand";
-
-type Store = {
-    statusCount: PieChartCount;
-    setStatusCount: (statusCount: PieChartCount) => void;
-    recordDataSets: RecordDataSets;
-    setRecordDataSets: (recordDataSets: RecordDataSets) => void;
-    statusDataSets: StatusDataSets;
-    setStatusDataSets: (statusDataSets: StatusDataSets) => void;
-    mediaCount: PieChartCount;
-    setMediaCount: (mediaCount: PieChartCount) => void;
-    activeDays: number | undefined;
-    setActiveDays: (activeDays: number) => void;
-    seasonYearData: TimeSeriesData[];
-    setSeasonYearData: (seasonYearData: TimeSeriesData[]) => void;
-    genresData: GenreData;
-    setGenresData: (genresData: GenreData) => void;
-    isLoading: {
-        status: boolean;
-        message: string;
-    };
-    setIsLoading: (isLoading: { status: boolean; message: string }) => void;
-};
 
 export const useStore = create<Store>((set) => ({
     statusCount: [
