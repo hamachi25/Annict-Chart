@@ -51,7 +51,7 @@ export function fetchData(token: string, store: Store, hasFetched: MutableRefObj
 
         // 保存されたデータに新しいデータを追加
         const updatedData = updateData(storedUserData, newUserData);
-        saveDataToLocalStorage("annictData", updatedData);
+        saveDataToLocalStorage<UserData>("annictData", updatedData);
 
         const dataSets = extractDataFromQuery(updatedData, newUserData);
         setStatusCount(dataSets.watchCounts);

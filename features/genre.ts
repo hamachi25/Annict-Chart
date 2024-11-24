@@ -1,5 +1,5 @@
 import { arm } from "@kawaiioverflow/arm";
-import type { AnilistQueryResult, AnilistMediaItem } from "./types";
+import type { AnilistMediaItem } from "./types";
 import { getDataFromLocalStorage, saveDataToLocalStorage } from "./utils";
 
 // Anilistのジャンルデータを処理する関数
@@ -46,7 +46,7 @@ export function processAnilistGenres(
 
     const storedData: AnilistMediaItem[] | null = getDataFromLocalStorage("anilistData");
     const combinedMedia = [...sortedMedia, ...(storedData || [])];
-    saveDataToLocalStorage("anilistData", combinedMedia);
+    saveDataToLocalStorage<AnilistMediaItem[]>("anilistData", combinedMedia);
 
     combinedMedia.forEach((media) => {
         media.genres.forEach((genre) => {

@@ -1,10 +1,4 @@
-import type {
-    TimeSeriesData,
-    ActivityItem,
-    PieChartCount,
-    UserData,
-    AnnictQueryResult,
-} from "@/features/types/index";
+import type { TimeSeriesData, ActivityItem, PieChartCount, UserData } from "@/features/types/index";
 
 // 日付の範囲内のすべての日付を取得する関数
 export function getAllDates(startDate: Date, endDate: Date): string[] {
@@ -304,7 +298,7 @@ export function updateData(storedUserData: UserData | null, newUserData: UserDat
     };
 }
 
-export function saveDataToLocalStorage(key: string, data: any) {
+export function saveDataToLocalStorage<T>(key: string, data: T) {
     localStorage.setItem(key, JSON.stringify(data));
 }
 
