@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "major": {
+    "enabled": false
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["@kawaiioverflow/arm"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ]
+  "timezone": "Asia/Tokyo",
+  "dependencyDashboard": false,
+  "automerge": true,
+  "branchConcurrentLimit": 0
+}
