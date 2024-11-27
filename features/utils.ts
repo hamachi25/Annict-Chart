@@ -269,8 +269,13 @@ export function getLast30DaysSummary(
     return last30Days;
 }
 
-export function updateData(storedUserData: UserData | null, newUserData: UserData): UserData {
+export function updateData(
+    CURRENT_VERSION: number,
+    storedUserData: UserData | null,
+    newUserData: UserData
+): UserData {
     return {
+        version: CURRENT_VERSION,
         wannaWatchCount: newUserData.wannaWatchCount,
         watchingCount: newUserData.watchingCount,
         watchedCount: newUserData.watchedCount,
@@ -279,18 +284,18 @@ export function updateData(storedUserData: UserData | null, newUserData: UserDat
         recordsCount: newUserData.recordsCount,
         activities: {
             pageInfo: {
-                startCursor:
-                    newUserData.activities.pageInfo.startCursor ||
-                    storedUserData?.activities.pageInfo.startCursor ||
+                endCursor:
+                    newUserData.activities.pageInfo.endCursor ||
+                    storedUserData?.activities.pageInfo.endCursor ||
                     "",
             },
             edges: [...newUserData.activities.edges, ...(storedUserData?.activities.edges || [])],
         },
         works: {
             pageInfo: {
-                startCursor:
-                    newUserData.works.pageInfo.startCursor ||
-                    storedUserData?.works.pageInfo.startCursor ||
+                endCursor:
+                    newUserData.works.pageInfo.endCursor ||
+                    storedUserData?.works.pageInfo.endCursor ||
                     "",
             },
             nodes: [...newUserData.works.nodes, ...(storedUserData?.works.nodes || [])],
@@ -305,4 +310,8 @@ export function saveDataToLocalStorage<T>(key: string, data: T) {
 export function getDataFromLocalStorage(key: string) {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : null;
+}
+
+export function removeDataFromLocalStorage(key: string) {
+    localStorage.removeItem(key);
 }

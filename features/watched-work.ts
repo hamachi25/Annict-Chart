@@ -34,5 +34,6 @@ export function generateAnilistIds(data: UserData): number[] {
             const match = arm.find((item) => item.annict_id === work.annictId);
             return match ? match.anilist_id : undefined;
         })
-        .filter((id): id is number => id !== undefined);
+        .filter((id): id is number => id !== undefined)
+        .reverse();
 }

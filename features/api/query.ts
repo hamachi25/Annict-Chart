@@ -1,4 +1,4 @@
-export const annictQuery = (beforeCursor: { activities: string | null; works: string | null }) => `
+export const annictQuery = (afterCursor: { activities: string | null; works: string | null }) => `
     query {
         viewer {
             wannaWatchCount
@@ -7,22 +7,22 @@ export const annictQuery = (beforeCursor: { activities: string | null; works: st
             onHoldCount
             stopWatchingCount
             recordsCount
-            works(state: WATCHED, orderBy: { field: CREATED_AT, direction: DESC }${
-                beforeCursor ? `, before: "${beforeCursor.works}"` : ""
+            works(state: WATCHED, orderBy: { field: CREATED_AT, direction: ASC}${
+                afterCursor ? `, after: "${afterCursor.works}"` : ""
             }) {
                 pageInfo {
-				    startCursor
+				    endCursor
 			    }
 		    	nodes {
                     annictId
 		    		seasonYear
 		    	}
 		    }
-            activities(orderBy: {field: CREATED_AT, direction: DESC}${
-                beforeCursor ? `, before: "${beforeCursor.activities}"` : ""
+            activities(orderBy: {field: CREATED_AT, direction: ASC}${
+                afterCursor ? `, after: "${afterCursor.activities}"` : ""
             }) {
                 pageInfo {
-				    startCursor
+				    endCursor
 			    }
                 edges {
                     item {

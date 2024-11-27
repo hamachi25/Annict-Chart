@@ -23,6 +23,7 @@ export type ActivityItem = {
 };
 
 export type UserData = {
+    version: number;
     wannaWatchCount: number;
     watchingCount: number;
     watchedCount: number;
@@ -30,11 +31,11 @@ export type UserData = {
     stopWatchingCount: number;
     recordsCount: number;
     works: {
-        pageInfo: { startCursor: string };
+        pageInfo: { endCursor: string };
         nodes: { annictId: number; seasonYear: number }[];
     };
     activities: {
-        pageInfo: { startCursor: string };
+        pageInfo: { endCursor: string };
         edges: { item: ActivityItem }[];
     };
 };

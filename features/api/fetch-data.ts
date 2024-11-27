@@ -9,7 +9,12 @@ import type {
     Store,
 } from "@/features/types/index";
 import { extractDataFromQuery } from "@/features/extract-data";
-import { updateData, getDataFromLocalStorage, saveDataToLocalStorage } from "@/features/utils";
+import {
+    updateData,
+    getDataFromLocalStorage,
+    saveDataToLocalStorage,
+    removeDataFromLocalStorage,
+} from "@/features/utils";
 
 export function fetchData(token: string, store: Store, hasFetched: MutableRefObject<boolean>) {
     const {
@@ -27,18 +32,24 @@ export function fetchData(token: string, store: Store, hasFetched: MutableRefObj
     if (token === "" || hasFetched.current || activeDays !== undefined) return;
     hasFetched.current = true;
 
+    // ローカルストレージのデータ構造のバージョン
+    const CURRENT_VERSION = 1;
+
     const fetchData = async () => {
         setIsLoading({ status: true, message: "Annictから視聴記録を取得しています。" });
 
         const storedData: UserData = getDataFromLocalStorage("annictData");
-        const storedUserData = storedData || null;
-        const beforeCursor = {
-            activities: storedUserData?.activities.pageInfo.startCursor || null,
-            works: storedUserData?.works.pageInfo.startCursor || null,
+        const storedUserData =
+            storedData && storedData.version === CURRENT_VERSION ? storedData : null;
+        if (!storedUserData) removeDataFromLocalStorage("annictData");
+
+        const afterCursor = {
+            activities: storedUserData?.activities.pageInfo.endCursor || null,
+            works: storedUserData?.works.pageInfo.endCursor || null,
         };
 
         const annictFetchResult: AnnictQueryResult = await fetchFromAnnict(
-            annictQuery(beforeCursor),
+            annictQuery(afterCursor),
             token
         );
 
@@ -50,7 +61,7 @@ export function fetchData(token: string, store: Store, hasFetched: MutableRefObj
         const newUserData = annictFetchResult.data.viewer;
 
         // 保存されたデータに新しいデータを追加
-        const updatedData = updateData(storedUserData, newUserData);
+        const updatedData = updateData(CURRENT_VERSION, storedUserData, newUserData);
         saveDataToLocalStorage<UserData>("annictData", updatedData);
 
         const dataSets = extractDataFromQuery(updatedData, newUserData);
