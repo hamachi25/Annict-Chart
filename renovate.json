@@ -1,13 +1,14 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": ["config:recommended"],
-    "major": {
-        "enabled": false
-    },
     "packageRules": [
         {
+            "matchPackagePatterns": ["*"],
+            "enabled": false
+        },
+        {
             "matchPackageNames": ["@kawaiioverflow/arm"],
-            "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+            "enabled": true,
             "automerge": true
         }
     ],
