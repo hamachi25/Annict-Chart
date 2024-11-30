@@ -1,8 +1,5 @@
-import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-
-const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], weight: ["400"] });
 
 export default function RootLayout({
     children,
@@ -11,7 +8,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ja">
-            <body className={notoSansJP.className}>
+            <body>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"

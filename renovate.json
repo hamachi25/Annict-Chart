@@ -1,6 +1,6 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": ["config:base"],
+    "extends": ["config:recommended"],
     "major": {
         "enabled": false
     },
@@ -9,14 +9,7 @@
             "matchPackageNames": ["@kawaiioverflow/arm"],
             "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
             "automerge": true
-        },
-        {
-            "excludePackageNames": ["@kawaiioverflow/arm"],
-            "enabled": false
         }
     ],
-    "timezone": "Asia/Tokyo",
-    "dependencyDashboard": false,
-    "automerge": true,
-    "branchConcurrentLimit": 0
+    "timezone": "Asia/Tokyo"
 }
