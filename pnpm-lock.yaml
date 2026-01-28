@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@kawaiioverflow/arm':
-        specifier: ^0.224.0
-        version: 0.224.0
+        specifier: ^0.225.0
+        version: 0.225.0
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.2
         version: 2.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -178,8 +178,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kawaiioverflow/arm@0.224.0':
-    resolution: {integrity: sha512-kdWUx5XLD/mIUcBgP21Hl6FbBrWxdMMd33LSMsuPe50Yf93JLr1FC4XYewEls8MSRJJBT0Qja3E0cto82SQInQ==}
+  '@kawaiioverflow/arm@0.225.0':
+    resolution: {integrity: sha512-T+3SoH0AblRnOnuaftT5aEcViFgeaHQXwPvdV+9SF7b+b2DBTPFD83VSj2eK/lYzkJ1Dv6VfLFDFR787Qj2XkA==}
     engines: {node: '>=18.0.0'}
 
   '@next/env@14.2.16':
@@ -205,24 +205,28 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   '@next/swc-linux-arm64-musl@14.2.16':
     resolution: {integrity: sha512-X2YSyu5RMys8R2lA0yLMCOCtqFOoLxrq2YbazFvcPOE4i/isubYjkh+JCpRmqYfEuCVltvlo+oGfj/b5T2pKUA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   '@next/swc-linux-x64-gnu@14.2.16':
     resolution: {integrity: sha512-9AGcX7VAkGbc5zTSa+bjQ757tkjr6C/pKS7OK8cX7QEiK6MHIIezBLcQ7gQqbDW2k5yaqba2aDtaBeyyZh1i6Q==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   '@next/swc-linux-x64-musl@14.2.16':
     resolution: {integrity: sha512-Klgeagrdun4WWDaOizdbtIIm8khUDQJ/5cRzdpXHfkbY91LxBXeejL4kbZBrpR/nmgRrQvmz4l3OtttNVkz2Sg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   '@next/swc-win32-arm64-msvc@14.2.16':
     resolution: {integrity: sha512-PwW8A1UC1Y0xIm83G3yFGPiOBftJK4zukTmk7DI1CebyMOoaVpd8aSy7K6GhobzhkjYvqS/QmzcfsWG2Dwizdg==}
@@ -2300,7 +2304,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@kawaiioverflow/arm@0.224.0': {}
+  '@kawaiioverflow/arm@0.225.0': {}
 
   '@next/env@14.2.16': {}
 
