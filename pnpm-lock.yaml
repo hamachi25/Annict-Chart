@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@kawaiioverflow/arm':
-        specifier: ^0.234.0
-        version: 0.234.0
+        specifier: ^0.235.0
+        version: 0.235.0
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.2
         version: 2.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -178,8 +178,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kawaiioverflow/arm@0.234.0':
-    resolution: {integrity: sha512-NxDv+oUmEfGfJIahzp5XYZRSKECJKz0svSnuu4pmc1QWB9pd7kGuFiSIEVy9v/zAxbw6TyveZLizd5ejHnTJnQ==}
+  '@kawaiioverflow/arm@0.235.0':
+    resolution: {integrity: sha512-VmkFjy0rPq9SoCT0z20aM40Io42XMzwqIZeaugwKL4twaGeQAcOLZTh9jddh8MKVRb3WIxVKXBvEImpuQh/KlQ==}
     engines: {node: '>=18.0.0'}
 
   '@next/env@14.2.16':
@@ -2306,7 +2306,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@kawaiioverflow/arm@0.234.0': {}
+  '@kawaiioverflow/arm@0.235.0': {}
 
   '@next/env@14.2.16': {}
 
